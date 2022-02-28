@@ -42,7 +42,7 @@ function DirectSale() {
   const [counter, setCounter] = useState(999);
   const [stopTransfer, setStopTransfer] = useState(false);
   const [listPlayers, setListPlayers] = useState([]);
-  const [selectPlayer, setSelectPlayer] = useState([]);
+  const [selectPlayer, setSelectPlayer] = useState();
   const [buying, setBuying] = useState(false);
   const { authenticate, isAuthenticated, user, logout } = useMoralis();
 
@@ -288,13 +288,19 @@ function DirectSale() {
 
             <Button
               className={`btn-reserve ${
-                disabled === true || buying || loading || !currentUser
+                disabled === true ||
+                !selectPlayer ||
+                buying ||
+                loading ||
+                !currentUser
                   ? "disabled"
                   : ""
               }`}
               type="primary"
               shape="round"
-              disabled={disabled || buying || loading || !currentUser}
+              disabled={
+                disabled || !selectPlayer || buying || loading || !currentUser
+              }
               onClick={() => {
                 transfer();
               }}
